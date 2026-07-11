@@ -1,0 +1,50 @@
+<div class="ied-manager">
+  <header class="ied-summary">
+    <span class="ied-total-label">{{localize "IED.Manager.Total"}}</span>
+    <span class="ied-total">{{total}}</span>
+  </header>
+
+  <section class="ied-bulk">
+    <button type="button" data-action="removeTemporary" {{#unless hasTemporary}}disabled{{/unless}}>
+      <i class="fa-solid fa-hourglass-end"></i> {{localize "IED.Manager.RemoveAllTemporary"}}
+    </button>
+    <div class="ied-bulk-perm">
+      <button type="button" data-action="removePermanent" {{#unless permanentTotal}}disabled{{/unless}}>
+        <i class="fa-solid fa-hand-sparkles"></i> {{localize "IED.Manager.RemovePermanent"}}
+      </button>
+      <input type="number" class="ied-perm-count" value="1" min="1" max="{{permanentTotal}}" step="1"
+        {{#unless permanentTotal}}disabled{{/unless}}>
+    </div>
+  </section>
+
+  <table class="ied-list">
+    <thead>
+      <tr><th>{{localize "IED.Col.Kind"}}</th><th>{{localize "IED.Col.Name"}}</th><th class="ied-num">{{localize "IED.Col.Levels"}}</th><th>{{localize "IED.Col.Detail"}}</th><th></th></tr>
+    </thead>
+    <tbody>
+      {{#each instances}}
+        <tr class="ied-row ied-kind-{{this.kind}}{{#unless this.active}} ied-inactive{{/unless}}">
+          <td><span class="ied-badge ied-badge-{{this.kind}}">{{this.kindLabel}}</span></td>
+          <td>{{this.name}}</td>
+          <td class="ied-num">{{this.amount}}</td>
+          <td class="ied-detail">{{this.detail}}</td>
+          <td class="ied-actions">
+            {{#if this.removable}}
+              <a data-action="removeInstance" data-instance-id="{{this.id}}" data-tooltip="{{localize "IED.Tooltip.Remove"}}">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            {{/if}}
+          </td>
+        </tr>
+      {{else}}
+        <tr><td colspan="5" class="ied-empty">{{localize "IED.Manager.Empty"}}</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <footer class="ied-add">
+    <button type="button" data-action="addInstance">
+      <i class="fa-solid fa-plus"></i> {{localize "IED.Manager.Add"}}
+    </button>
+  </footer>
+</div>

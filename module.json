@@ -1,0 +1,54 @@
+{
+  "id": "pf1-improved-energy-drain",
+  "title": "PF1 Improved Energy Drain",
+  "description": "<p>Completes the Pathfinder 1e <em>energy drain</em> / negative level rules that the system leaves to the GM. Tracks each source of negative levels as its own instance with its own kind and lifecycle: temporary levels that expire on their own, bestowed levels that trigger a Fortitude save after 24 hours (fail = permanent level loss), and static levels tied to a worn/active source. Adds the death check at negative levels &ge; Hit Dice, a manual-application prompt, an <code>@EnergyDrain[...]</code> enricher, and a module API.</p>",
+  "authors": [
+    {
+      "name": "Hamilcarbarcas",
+      "flags": {}
+    }
+  ],
+  "version": "0.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf1",
+        "type": "system",
+        "compatibility": {
+          "minimum": "11"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "src/scripts/energy-drain.mjs",
+    "src/scripts/enricher.mjs",
+    "src/scripts/item-static.mjs",
+    "src/scripts/manager.mjs",
+    "src/scripts/lifecycle.mjs",
+    "src/scripts/save-card.mjs",
+    "src/scripts/death.mjs",
+    "src/scripts/migration.mjs"
+  ],
+  "styles": [
+    "src/styles/energy-drain.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "hbs"],
+      "paths": ["src/styles/energy-drain.css", "src/templates"]
+    }
+  }
+}

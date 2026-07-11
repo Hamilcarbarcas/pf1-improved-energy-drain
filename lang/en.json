@@ -1,0 +1,78 @@
+{
+  "IED.Settings.AltRules.Name": "Alternate energy drain rules",
+  "IED.Settings.AltRules.Hint": "Off (default, rules-as-written): 24 hours after each bestowal, one Fortitude save per level — failures become permanent. On: bestowed levels never become permanent and there is no 24-hour timer; instead, each full rest (once per day) allows one Fortitude save against the lowest save DC among the creature's negative levels to shed a single level.",
+
+  "IED.Migration.MenuName": "Manual value migration",
+  "IED.Migration.MenuLabel": "Migrate",
+  "IED.Migration.MenuHint": "One-time: convert actors' manually-entered Negative Levels values into permanent negative-level entries managed by this module.",
+  "IED.Migration.Title": "Migrate Manual Energy Drain",
+  "IED.Migration.Prompt": "Convert every actor's manually-entered Negative Levels value into a permanent negative-level entry managed by this module? Actors that already have tracked negative levels are skipped.",
+  "IED.Migration.SourceName": "Negative Levels",
+  "IED.Migration.Done": "Energy Drain migration: converted {count} actor(s).",
+
+  "IED.Kind.temporary": "Temporary",
+  "IED.Kind.bestowed": "Bestowed",
+  "IED.Kind.permanent": "Permanent",
+  "IED.Kind.static": "Static",
+
+  "IED.Manager.Total": "Total negative levels",
+  "IED.Manager.Empty": "No negative levels.",
+  "IED.Manager.RemoveAllTemporary": "Remove all temporary",
+  "IED.Manager.RemovePermanent": "Remove permanent",
+  "IED.Manager.Add": "Add negative levels",
+  "IED.Col.Kind": "Kind",
+  "IED.Col.Name": "Name",
+  "IED.Col.Levels": "Lv",
+  "IED.Col.Detail": "Detail",
+  "IED.Tooltip.Remove": "Remove",
+  "IED.Tooltip.Manage": "Manage negative levels",
+
+  "IED.Detail.ExpiresIn": "Expires in {time}",
+  "IED.Detail.SaveIn": "DC {dc} · save in {time}",
+  "IED.Detail.SaveDue": "DC {dc} · save due",
+  "IED.Detail.Static": "While equipped / enabled",
+  "IED.Detail.None": "—",
+  "IED.Detail.DcNone": "—",
+
+  "IED.Field.Type": "Type",
+  "IED.Field.Name": "Name",
+  "IED.Field.Levels": "Levels",
+  "IED.Field.SaveDC": "Save DC",
+  "IED.Field.Duration": "Duration",
+  "IED.Button.Add": "Add",
+  "IED.Button.Cancel": "Cancel",
+
+  "IED.Confirm.RemoveEntry": "this entry",
+  "IED.Confirm.RemoveLabel": "{amount} {kind} negative level(s) — {name}",
+  "IED.Confirm.Remove": "Remove {label}?",
+  "IED.Confirm.RemoveTemporary": "Remove all temporary negative levels, including any not-yet-permanent bestowed levels?",
+  "IED.Confirm.RemovePermanent": "Remove {count} permanent negative level(s)?",
+
+  "IED.Item.StaticNote": "Conferred while this item is equipped or enabled.",
+
+  "IED.Save.RequestName": "Fortitude Save - Energy Drain ({name})",
+  "IED.Card.MayBecomePermanent": "{actor} — {levels} from {source} may become permanent.",
+  "IED.Card.RollSaves": "Roll {count} Fortitude save(s) (DC {dc})",
+  "IED.Levels": "{count} negative level(s)",
+
+  "IED.Result.ShakenOff": "{count} shaken off",
+  "IED.Result.NowPermanent": "{count} now permanent",
+  "IED.Result.Summary": "{source}: {parts}.",
+  "IED.Result.HouseRecover": "Recovers a negative level from {source}.",
+  "IED.Result.HouseAfflicted": "Still afflicted ({source}).",
+  "IED.Result.Line": "{actor} — {text}",
+
+  "IED.Death.Message": "{actor} has negative levels equal to or exceeding its Hit Dice ({total} ≥ {hd}) and dies.",
+
+  "IED.Enricher.ApplyText": "Energy Drain: {amount}",
+  "IED.Enricher.ApplyTip": "Apply {kind} negative levels: {amount}",
+  "IED.Enricher.RemoveText": "Remove Energy Drain",
+  "IED.Enricher.RemoveTip": "Remove negative levels: {summary}",
+  "IED.Enricher.SummaryTemporary": "all temporary",
+  "IED.Enricher.SummaryPermanent": "{count} permanent",
+  "IED.Enricher.SummaryNothing": "nothing",
+
+  "IED.Warn.NoTarget": "Energy Drain: no target. Select or target a token first.",
+  "IED.Warn.NotOwner": "Energy Drain: you don't control {name}.",
+  "IED.Warn.NoGM": "No active GM to apply the energy drain."
+}

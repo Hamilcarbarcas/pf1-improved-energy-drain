@@ -1,0 +1,166 @@
+/* PF1 Improved Energy Drain — styles.
+   Class-scoped only, to avoid clobbering button/FontAwesome rules elsewhere. */
+
+/* @EnergyDrain enriched link — necrotic purple pill. */
+.pf1-energydrain-link {
+  display: inline;
+  padding: 0 4px;
+  border: 1px solid #5b2a86;
+  border-radius: 3px;
+  background: #efe7f5;
+  color: #3d1a5b;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pf1-energydrain-link:hover {
+  text-shadow: 0 0 6px #7d3cba;
+}
+
+.pf1-energydrain-link i.fa-skull {
+  color: #5b2a86;
+}
+
+/* @RemoveEnergyDrain enriched link — restorative green pill. */
+.pf1-energydrain-remove-link {
+  display: inline;
+  padding: 0 4px;
+  border: 1px solid #2e7d54;
+  border-radius: 3px;
+  background: #e7f5ec;
+  color: #1a5b39;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pf1-energydrain-remove-link:hover {
+  text-shadow: 0 0 6px #37b075;
+}
+
+.pf1-energydrain-remove-link i.fa-hand-sparkles {
+  color: #2e7d54;
+}
+
+/* Negative-level manager window */
+.ied-manager-app .ied-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px;
+}
+
+.ied-manager-app .ied-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--color-border-light-2, #bbb);
+}
+
+.ied-manager-app .ied-total {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #5b2a86;
+}
+
+.ied-manager-app .ied-bulk {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ied-manager-app .ied-bulk-perm {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.ied-manager-app .ied-perm-count {
+  width: 3.5em;
+}
+
+.ied-manager-app table.ied-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ied-manager-app .ied-list th,
+.ied-manager-app .ied-list td {
+  padding: 2px 4px;
+  text-align: left;
+}
+
+.ied-manager-app .ied-list .ied-num {
+  text-align: center;
+  width: 2.5em;
+}
+
+.ied-manager-app .ied-actions {
+  text-align: right;
+  width: 2em;
+}
+
+.ied-manager-app .ied-row.ied-inactive {
+  opacity: 0.5;
+}
+
+.ied-manager-app .ied-badge {
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.ied-manager-app .ied-badge-temporary { background: #b8860b; }
+.ied-manager-app .ied-badge-bestowed { background: #8b1a1a; }
+.ied-manager-app .ied-badge-permanent { background: #3d1a5b; }
+.ied-manager-app .ied-badge-static { background: #2e5b7d; }
+
+.ied-manager-app .ied-detail {
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+
+.ied-manager-app .ied-empty {
+  text-align: center;
+  opacity: 0.6;
+  padding: 8px;
+}
+
+.ied-manager-app .ied-add {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--color-border-light-2, #bbb);
+  padding-top: 6px;
+}
+
+/* Add dialog: hidden rows collapse (toggled inline by the render callback). */
+.ied-add-dialog .ied-add-form .form-group {
+  margin: 2px 0;
+}
+
+/* Fortitude-save chat cards */
+.pf1-ied-card p {
+  margin: 0.25em 0;
+}
+
+.pf1-ied-card .pf1-ied-save {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.pf1-ied-card.pf1-ied-pass {
+  color: #1a5b39;
+}
+
+.pf1-ied-card.pf1-ied-fail {
+  color: #8b1a1a;
+}
+
+/* Actor-sheet Negative Levels field — reuses the sheet's trait-row layout. */
+.negative-levels a.ied-open-manager {
+  cursor: pointer;
+}
