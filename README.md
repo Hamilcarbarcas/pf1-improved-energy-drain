@@ -58,7 +58,9 @@ The restoration counterpart. `temporary` and `permanent=N` can be combined in on
 
 ### From items (static levels)
 
-On any item's **Details** tab, below the creature-type section, is a **Negative Levels** control: tick it and set an amount. That item then confers that many negative levels **while it is active** — equipped for gear, enabled/active for features and buffs. Unequip or disable the item and the levels go away. These show up as read-only **Static** rows in the manager.
+On any item's **Details** tab, below the creature-type section, is a collapsible **Negative Levels** section: click the header to expand it (the skull icon is the control — full strength when open, dimmed when closed), then tick the box and set an amount. That item then confers that many negative levels **while it is active** — equipped for gear, enabled/active for features and buffs. Unequip or disable the item and the levels go away. These show up as read-only **Static** rows in the manager.
+
+The section starts collapsed on items that have nothing configured, and expanded on items that do — a configured item also shows its level count as a badge on the header, so you can see it without expanding. The choice lasts as long as the sheet stays open and is not saved to the item.
 
 ## Recovery (the save)
 

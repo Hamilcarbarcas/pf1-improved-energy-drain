@@ -49,6 +49,7 @@
   "IED.Confirm.RemovePermanent": "Remove {count} permanent negative level(s)?",
 
   "IED.Item.StaticNote": "Conferred while this item is equipped or enabled.",
+  "IED.Item.ToggleSection": "Expand / collapse",
 
   "IED.Save.RequestName": "Fortitude Save - Energy Drain ({name})",
   "IED.Card.MayBecomePermanent": "{actor} — {levels} from {source} may become permanent.",
