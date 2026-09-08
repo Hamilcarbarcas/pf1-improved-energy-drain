@@ -35,6 +35,7 @@
     "src/scripts/migration.mjs"
   ],
   "styles": [
+    "src/common/sheet/kit.css",
     "src/styles/energy-drain.css"
   ],
   "languages": [
@@ -47,8 +48,14 @@
   "socket": true,
   "flags": {
     "hotReload": {
-      "extensions": ["css", "hbs"],
-      "paths": ["src/styles/energy-drain.css", "src/templates"]
+      "extensions": [
+        "css",
+        "hbs"
+      ],
+      "paths": [
+        "src/styles/energy-drain.css",
+        "src/templates"
+      ]
     }
   }
 }

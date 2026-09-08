@@ -173,18 +173,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
-  user-select: none;
-  transition: opacity 120ms ease;
 }
 
-.ied-static-control-section.ied-static-control-collapsed .ied-static-control-header {
-  opacity: 0.55;
-}
-
-.ied-static-control-header:hover {
-  opacity: 1;
-}
 
 .ied-static-control-header .ied-static-control-badge {
   flex: 0 0 auto;

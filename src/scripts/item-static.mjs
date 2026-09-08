@@ -20,29 +20,14 @@
  */
 
 import { FLAG_STATIC, FLAG_STATIC_ENABLED, MODULE_ID } from "./common.mjs";
+import { makeCollapsible } from "../common/sheet/collapse.mjs";
 
 const MARK = "ied-static-control";
 
 /**
- * Expanded state per open sheet, keyed by `app.appId`. Undefined means "no
- * choice made yet", which falls back to the configured-or-not default.
+ * Expanded state is the shared kit's, remembered per open sheet and forgotten on
+ * close; reopening falls back to the configured-or-not default.
  *
- * @type {Map<number, boolean>}
- */
-const expandedByApp = new Map();
-
-/**
- * @param {HTMLElement} section
- * @param {boolean} expanded
- */
-function applyExpanded(section, expanded) {
-  section.dataset.iedExpanded = expanded ? "true" : "false";
-  section.classList.toggle(`${MARK}-collapsed`, !expanded);
-  const body = section.querySelector(`.${MARK}-body`);
-  if (body) body.style.display = expanded ? "" : "none";
-}
-
-/**
  * @param {ItemSheet} app
  * @param {JQuery|HTMLElement} html
  */
@@ -61,7 +46,6 @@ function onRenderItemSheet(app, html) {
   const enabled = !!item.getFlag(MODULE_ID, FLAG_STATIC_ENABLED);
   const amount = Number(item.getFlag(MODULE_ID, FLAG_STATIC) ?? 0);
   const configured = enabled || amount > 0;
-  const expanded = expandedByApp.get(app.appId) ?? configured;
 
   const label = game.i18n.localize("PF1.NegativeLevels");
   // Collapsed rows still need to advertise a configured value, or the section
@@ -92,21 +76,18 @@ function onRenderItemSheet(app, html) {
     </div>
   `;
 
-  applyExpanded(section, expanded);
-
-  section.querySelector(`.${MARK}-header`).addEventListener("click", (event) => {
-    if (event.target.closest("a, button, input, select")) return;
-    event.preventDefault();
-    event.stopPropagation();
-    const next = section.dataset.iedExpanded !== "true";
-    expandedByApp.set(app.appId, next);
-    applyExpanded(section, next);
-  });
-
   anchor.after(section);
+
+  makeCollapsible(app, section, {
+    key: "static",
+    marker: MARK,
+    configured,
+    // The badge is rendered above with this module's own class and colour, so the
+    // kit must not add a second one.
+    badge: null,
+    title: game.i18n.localize("IED.Item.ToggleSection"),
+  });
 }
 
 Hooks.on("renderItemSheetPF", onRenderItemSheet);
 Hooks.on("renderItemSheetPF_Container", onRenderItemSheet);
-Hooks.on("closeItemSheetPF", (app) => expandedByApp.delete(app.appId));
-Hooks.on("closeItemSheetPF_Container", (app) => expandedByApp.delete(app.appId));
