@@ -3,7 +3,8 @@
  *
  * Adds an "enable + amount" control to the item sheet's Details tab, appended
  * after the creature-type section (the last base-game block, shared by
- * equipment / feat / buff / class / race / weapon). The item then confers that
+ * equipment / feat / buff / class / weapon; race items are skipped unless already
+ * configured, since their creature type sits mid-tab). The item then confers that
  * many *static* negative levels while it is active — equipped for equipment,
  * enabled/active for features and buffs (see `item.isActive`).
  *
@@ -14,13 +15,15 @@
  * opens by default only when the item is actually configured; a per-sheet memo
  * keeps the user's choice across the re-render each flag write triggers.
  *
- * The inputs carry `flags.<module>.*` names, so the system's own V1 item sheet
- * persists them on change; no manual submit handling is needed. The actor
- * re-derives its total whenever an embedded item updates.
+ * The inputs carry no `name`: a named field inside the sheet's form is swept
+ * into every submit, writing default flags to any item whose Details tab was
+ * opened. bindFields persists them instead. The actor re-derives its total
+ * whenever an embedded item updates.
  */
 
 import { FLAG_STATIC, FLAG_STATIC_ENABLED, MODULE_ID } from "./common.mjs";
 import { makeCollapsible } from "../common/sheet/collapse.mjs";
+import { bindFields } from "../common/sheet/field-bind.mjs";
 
 const MARK = "ied-static-control";
 
@@ -47,10 +50,14 @@ function onRenderItemSheet(app, html) {
   const amount = Number(item.getFlag(MODULE_ID, FLAG_STATIC) ?? 0);
   const configured = enabled || amount > 0;
 
+  // Races carry creature type at the top of Details, so the anchor lands mid-tab;
+  // shown only when already configured so an existing value stays editable.
+  if (item.type === "race" && !configured) return;
+
   const label = game.i18n.localize("PF1.NegativeLevels");
   // Collapsed rows still need to advertise a configured value, or the section
   // reads as empty on exactly the items where it matters.
-  const badge = configured ? `<span class="${MARK}-badge">${amount}</span>` : "";
+  const badge = `<span class="${MARK}-badge"${configured ? "" : ` style="display: none"`}>${amount}</span>`;
 
   const section = document.createElement("div");
   section.className = `${MARK} ${MARK}-section`;
@@ -65,11 +72,10 @@ function onRenderItemSheet(app, html) {
         <label>${label}</label>
         <div class="form-fields">
           <label class="checkbox">
-            <input type="checkbox" name="flags.${MODULE_ID}.${FLAG_STATIC_ENABLED}" ${enabled ? "checked" : ""}>
+            <input type="checkbox" data-field="${FLAG_STATIC_ENABLED}">
           </label>
-          <input type="number" name="flags.${MODULE_ID}.${FLAG_STATIC}"
-            value="${amount}" min="0" step="1" data-dtype="Number"
-            placeholder="0" style="flex: 0 0 4em;">
+          <input type="number" data-field="${FLAG_STATIC}"
+            min="0" step="1" placeholder="0" style="flex: 0 0 4em;">
         </div>
         <p class="notes">${game.i18n.localize("IED.Item.StaticNote")}</p>
       </div>
@@ -77,6 +83,26 @@ function onRenderItemSheet(app, html) {
   `;
 
   anchor.after(section);
+
+  const values = { [FLAG_STATIC_ENABLED]: enabled, [FLAG_STATIC]: amount };
+  const refreshBadge = () => {
+    const el = section.querySelector(`.${MARK}-badge`);
+    el.textContent = String(values[FLAG_STATIC]);
+    el.style.display = values[FLAG_STATIC_ENABLED] || values[FLAG_STATIC] > 0 ? "" : "none";
+  };
+
+  bindFields(section, {
+    doc: item,
+    base: `flags.${MODULE_ID}`,
+    values,
+    fields: {
+      [FLAG_STATIC_ENABLED]: { type: "checkbox", onChange: (v) => ((values[FLAG_STATIC_ENABLED] = v), refreshBadge()) },
+      [FLAG_STATIC]: {
+        type: "number",
+        onChange: (v) => ((values[FLAG_STATIC] = Math.max(0, Math.trunc(v))), refreshBadge()),
+      },
+    },
+  });
 
   makeCollapsible(app, section, {
     key: "static",

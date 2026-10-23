@@ -12,9 +12,14 @@
 - The item-sheet **Negative Levels** control is now a collapsible section. Click the header to expand or collapse it — the skull icon is the control, full strength when open and dimmed when closed. It starts collapsed on items with nothing configured, expanded on items that confer static levels, and shows the level count as a badge on the header while collapsed.
 
 ### Fixed
+- **Race items no longer show the Negative Levels section in the middle of their Details tab.**
+  It is hidden on races unless one already has static levels configured.
 - **Adding or changing an entry in a sheet section no longer jumps the sheet back to the top of
   the tab.** Sections from the shared sheet kit now restore the scroll position once they have
   drawn.
+- **Opening an item's Details tab no longer writes empty Negative Levels settings to it.** The
+  control's fields were part of the item sheet's form, so any save of the item (including closing
+  the sheet) stored "off, 0" on items that never used it. They now save only when changed.
 
 ## [0.9.0] - 2026-07-11
 

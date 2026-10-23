@@ -38,7 +38,11 @@ No spell-slot loss (house rule: not used).
 Static is configured **on the item**: a small enable + amount control on the
 item's Details tab, appended after the creature-type block
 (`item-creature-type.hbs`, the last base section, shared by buff/class/
-equipment/feat/race/weapon). Stored as an item flag. The levels apply only
+equipment/feat/weapon; race is skipped unless already configured, because its
+creature type sits at the top of the tab). Stored as an item flag, written by the shared kit's
+`bindFields` on change only. The inputs carry no `name`: named fields inside the V1 sheet's form
+were swept into every submit (including submit-on-close), stamping `staticEnabled: false` /
+`staticLevels: 0` onto every item whose Details tab was opened (2026-10-23). The levels apply only
 while `item.isActive` (equipped for equipment, enabled/active for
 features/buffs) — set-but-inactive contributes nothing.
 
