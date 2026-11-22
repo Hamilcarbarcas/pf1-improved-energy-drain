@@ -6,8 +6,10 @@
  *   @EnergyDrain[2;dc=18]{Energy Drain}                 bestowed (default), DC 18
  *   @EnergyDrain[1d4;kind=temporary;duration=1h]{Enervation}
  *   @EnergyDrain[1;kind=permanent]{Raise Dead}
+ *   @EnergyDrain[2;dc=10 + floor(@attributes.hd.total / 2) + @abilities.cha.mod]{Energy Drain}
  * The primary argument is the level amount (number or roll formula, evaluated
- * against the source actor at click time). `label` becomes the instance name.
+ * against the source actor at click time); `dc` may be a formula the same way.
+ * `label` becomes the instance name.
  *
  * Remove — `@RemoveEnergyDrain[opts]{label}`; `temporary` and `permanent=N`
  * combine in one tag:
@@ -145,6 +147,28 @@ async function rollAmount(formula, rollData) {
   }
 }
 
+/**
+ * Resolve the `dc` option: a plain number as written, otherwise a formula
+ * evaluated against the source actor's data (e.g. a monster's
+ * `10 + floor(@attributes.hd.total / 2) + @abilities.cha.mod`).
+ *
+ * @param {string|undefined} formula
+ * @param {object|null} rollData
+ * @returns {Promise<number|undefined>}
+ */
+async function rollDC(formula, rollData) {
+  if (formula == null || formula === "") return undefined;
+  if (/^\d+$/.test(formula.trim())) return parseInt(formula, 10);
+  try {
+    const roll = await new Roll(formula, rollData ?? {}).evaluate();
+    return Math.floor(roll.total);
+  } catch (err) {
+    console.error(`pf1-improved-energy-drain | bad dc formula "${formula}"`, err);
+    ui.notifications.warn(game.i18n.format("IED.Warn.BadDC", { formula }));
+    return undefined;
+  }
+}
+
 /* -------------------------------------------- */
 /*  Click handling                                                            */
 /* -------------------------------------------- */
@@ -165,13 +189,15 @@ async function onClick(event) {
 
   if (apply) {
     const { amount, kind, dc, duration, name } = a.dataset;
-    const amt = await rollAmount(amount, getSourceRollData(a));
+    const rollData = getSourceRollData(a);
+    const amt = await rollAmount(amount, rollData);
+    const saveDC = await rollDC(dc, rollData);
     for (const actor of actors) {
       api.apply(actor, {
         kind,
         amount: amt,
         name,
-        dc: dc != null ? parseInt(dc, 10) : undefined,
+        dc: saveDC,
         duration: duration != null ? parseInt(duration, 10) : undefined,
       });
     }

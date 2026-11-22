@@ -9,6 +9,7 @@
 
 ## Unreleased
 
+- **`@EnergyDrain`'s `dc` option takes a formula**, evaluated against the source actor when the button is clicked, the same as the amount. A monster's energy drain can now carry its own DC, e.g. `@EnergyDrain[2;dc=10 + floor(@attributes.hd.total / 2) + @abilities.cha.mod]{Energy Drain}`.
 - The item-sheet **Negative Levels** control is now a collapsible section. Click the header to expand or collapse it — the skull icon is the control, full strength when open and dimmed when closed. It starts collapsed on items with nothing configured, expanded on items that confer static levels, and shows the level count as a badge on the header while collapsed.
 
 ### Fixed

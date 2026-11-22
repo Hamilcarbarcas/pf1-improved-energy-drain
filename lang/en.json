@@ -74,6 +74,7 @@
   "IED.Enricher.SummaryNothing": "nothing",
 
   "IED.Warn.NoTarget": "Energy Drain: no target. Select or target a token first.",
+  "IED.Warn.BadDC": "Energy Drain: could not evaluate the DC formula \"{formula}\". The levels were applied without a save DC.",
   "IED.Warn.NotOwner": "Energy Drain: you don't control {name}.",
   "IED.Warn.NoGM": "No active GM to apply the energy drain."
 }

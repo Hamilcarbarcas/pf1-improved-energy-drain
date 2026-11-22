@@ -41,7 +41,7 @@ All removals ask for confirmation.
 Options after the amount (separated by `;`):
 
 - **`kind`** — `bestowed` (default), `temporary`, or `permanent`.
-- **`dc`** — the Fortitude DC (bestowed only). *A bestowed level with no DC never rolls its save — always give bestowed a `dc`.*
+- **`dc`**: the Fortitude DC (bestowed only). A number, or a formula evaluated against the **source** actor at click time, like the amount (e.g. `dc=10 + floor(@attributes.hd.total / 2) + @abilities.cha.mod` for a monster's Cha-based DC). *A bestowed level with no DC never rolls its save, so always give bestowed a `dc`.*
 - **`duration`** — how long a temporary level lasts: `30s`, `10m`, `1h`, `2d`, or a plain number of seconds. *A temporary level with no duration expires immediately — always give temporary a `duration`.*
 
 The amount may be a number or a roll formula (e.g. `1d4`), evaluated against the **source** actor at click time.
